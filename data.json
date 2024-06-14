@@ -1,0 +1,93 @@
+{
+    "clientes": [
+      {
+        "id": 1,
+        "nome": "Empresa A",
+        "email": "contato@empresaa.com",
+        "telefone": "1234567890",
+        "projetos": [
+          {
+            "id": 1,
+            "nome": "Projeto A1",
+            "descricao": "Descrição do Projeto A1",
+            "status": "em andamento",
+            "atividades": [
+              {
+                "id": 1,
+                "nome": "Atividade A1.1",
+                "descricao": "Descrição da Atividade A1.1",
+                "dataInicio": "2024-06-01",
+                "dataFim": "2024-06-10",
+                "status": "concluída"
+              },
+              {
+                "id": 2,
+                "nome": "Atividade A1.2",
+                "descricao": "Descrição da Atividade A1.2",
+                "dataInicio": "2024-06-11",
+                "dataFim": "2024-06-20",
+                "status": "em andamento"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "projetos": [
+      {
+        "id": 1,
+        "nome": "Projeto A1",
+        "descricao": "Descrição do Projeto A1",
+        "status": "em andamento",
+        "clienteId": 1,
+        "atividades": [
+          {
+            "id": 1,
+            "nome": "Atividade A1.1",
+            "descricao": "Descrição da Atividade A1.1",
+            "dataInicio": "2024-06-01",
+            "dataFim": "2024-06-10",
+            "status": "concluída"
+          },
+          {
+            "id": 2,
+            "nome": "Atividade A1.2",
+            "descricao": "Descrição da Atividade A1.2",
+            "dataInicio": "2024-06-11",
+            "dataFim": "2024-06-20",
+            "status": "em andamento"
+          }
+        ]
+      }
+    ],
+    "atividades": [
+      {
+        "id": 1,
+        "nome": "Atividade A1.1",
+        "descricao": "Descrição da Atividade A1.1",
+        "dataInicio": "2024-06-01",
+        "dataFim": "2024-06-10",
+        "status": "concluída",
+        "projetoId": 1
+      },
+      {
+        "id": 2,
+        "nome": "Atividade A1.2",
+        "descricao": "Descrição da Atividade A1.2",
+        "dataInicio": "2024-06-11",
+        "dataFim": "2024-06-20",
+        "status": "em andamento",
+        "projetoId": 1
+      }
+    ],
+    "usuarios": [
+      {
+        "id": 1,
+        "nome": "Admin",
+        "email": "admin@microsoft.com",
+        "senha": "hashed_password",
+        "role": "admin"
+      }
+    ]
+  }
+  
