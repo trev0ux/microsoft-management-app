@@ -35,7 +35,7 @@ export default {
   },
   props: {
     projectId: {
-      type: Number,
+      type: String,
       required: true,
     },
     id: {
@@ -63,7 +63,6 @@ export default {
         taskId: this.id,
         status: newStatus,
       });
-      console.log(this.updateStatus);
     }
   },
 };

@@ -6,9 +6,13 @@
         Adicionar atividade
       </button>
     </div>
-    <tasks-board :tasks="tasks" @update-task-status="updateTaskStatus" :projectId="projectId"/>
+    <tasks-board
+      :tasks="tasks"
+      @update-task-status="updateTaskStatus"
+      :projectId="projectId"
+    />
     <custom-modal>
-      <task-form :project-id="projectId"/>
+      <task-form :project-id="projectId" />
     </custom-modal>
   </section>
 </template>
@@ -18,7 +22,6 @@ import CustomModal from "@/components/organisms/custom-modal/custom-modal.vue";
 import TaskForm from "@/components/organisms/task-form/task-form.vue";
 import TasksBoard from "@/components/organisms/tasks-board/tasks-board.vue";
 import { inject } from "vue";
-import { mapGetters } from 'vuex';
 
 export default {
   computed: {
@@ -27,17 +30,18 @@ export default {
     },
     projectName() {
       const project = this.$store.getters.getProjectById(this.projectId);
-      return project ? project.name : '';
+      return project ? project.name : "";
     },
-    ...mapGetters(['getTasksByProjectId']),
-    tasks() {
-      return this.getTasksByProjectId(this.projectId);
+  },
+  data() {
+    return {
+        tasks: []
     }
   },
   components: {
     TasksBoard,
     TaskForm,
-    CustomModal
+    CustomModal,
   },
   setup() {
     const modalService = inject("modalService");
@@ -46,19 +50,23 @@ export default {
       modalService,
     };
   },
+  created() {
+    this.fetchTasks();
+  },
   methods: {
     openModal() {
       this.modalService.openModal("", "Adicionar tarefa");
     },
     fetchTasks() {
       this.tasks = this.$store.getters.getTasksByProjectId(this.projectId);
+      console.log(this.tasks)
     },
     updateTaskStatus({ id, status }) {
-      const task = this.tasks.find(task => task.id === id);
+      const task = this.tasks.find((task) => task.id === id);
       if (task) {
         task.status = status;
       }
-    }
+    },
   },
 };
 </script>

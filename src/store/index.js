@@ -55,8 +55,15 @@ const store = createStore({
     addTask(state, { projectId, task }) {
       task.projectId = projectId;
       state.tasks.push(task);
-      const project = state.projects.find((project) => project.id == projectId);
+      const customer = state.customers.find((customer) =>
+        customer.projects.some((project) => project.id == projectId)
+      );
+      if (!customer) return [];
 
+      const project = customer.projects.find(
+        (project) => project.id == projectId
+      );      
+      
       if (project) {
         project.tasks.push(task);
       } else {
@@ -95,7 +102,16 @@ const store = createStore({
     },
     projects: (state) => state.projects,
     getProjectById: (state) => (projectId) => {
-      return state.projects.find((project) => project.id == projectId);
+      const customer = state.customers.find((customer) =>
+        customer.projects.some((project) => project.id == projectId)
+      );
+      if (!customer) return [];
+
+      const project = customer.projects.find(
+        (project) => project.id == projectId
+      );
+
+      return project ? project : [];
     },
     getTasksByProjectId: (state) => (projectId) => {
       const customer = state.customers.find((customer) =>
@@ -106,6 +122,7 @@ const store = createStore({
       const project = customer.projects.find(
         (project) => project.id == projectId
       );
+
       return project ? project.tasks : [];
     },
     getProjectsByCustomerId: (state) => (projectId) => {

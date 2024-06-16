@@ -51,7 +51,7 @@ export default {
         id: uuidv4(),
         name: this.name,
         description: this.description,
-        status: "Nova",
+        status: "to-do",
       };
 
       this.$store.dispatch("addTask", {

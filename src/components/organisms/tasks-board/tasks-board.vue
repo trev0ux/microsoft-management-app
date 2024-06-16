@@ -11,6 +11,9 @@
           :status="task.status"
         ></task-item>
       </li>
+      <li v-if="tasksToDo.length == 0">
+          <h3>Nenhuma task para fazer</h3>
+      </li>
     </ul>
     <ul>
       <h2>Em andamento</h2>
@@ -23,6 +26,9 @@
           :status="task.status"
         ></task-item>
       </li>
+      <li v-if="tasksInProgress.length == 0">
+          <h3>Nenhuma task em andamento.</h3>
+      </li>
     </ul>
     <ul>
       <h2>Feita</h2>
@@ -34,6 +40,9 @@
           :description="task.description"
           :status="task.status"
         ></task-item>
+      </li>
+      <li v-if="tasksDone.length == 0">
+          <h3>Nenhuma task feita.</h3>
       </li>
     </ul>
   </div>

@@ -1,19 +1,18 @@
 {
     "customers": [
       {
-        "id": 145,
+        "id": "1243",
         "name": "Company A",
         "email": "contact@companya.com",
-        "phone": "1234567890",
         "projects": [
           {
             "id": 1,
             "name": "Project A1",
             "description": "Description of Project A1",
-            "status": "in progress",
+            "status": "Em andamento",
             "tasks": [
               {
-                "id": 1,
+                "id": "1",
                 "name": "Task A1.1",
                 "description": "Description of Task A1.1",
                 "startDate": "2024-06-01",
@@ -21,7 +20,7 @@
                 "status": "to-do"
               },
               {
-                "id": 2,
+                "id": "1",
                 "name": "Task A1.2",
                 "description": "Description of Task A1.2",
                 "startDate": "2024-06-11",
@@ -33,53 +32,7 @@
         ]
       }
     ],
-    "projects": [
-      {
-        "id": 1,
-        "name": "Project A1",
-        "description": "Description of Project A1",
-        "status": "in progress",
-        "customerId": 1,
-        "tasks": [
-          {
-            "id": 1,
-            "name": "Task A1.1",
-            "description": "Description of Task A1.1",
-            "startDate": "2024-06-01",
-            "endDate": "2024-06-10",
-            "status": "to-do"
-          },
-          {
-            "id": 2,
-            "name": "Task A1.2",
-            "description": "Description of Task A1.2",
-            "startDate": "2024-06-11",
-            "endDate": "2024-06-20",
-            "status": "active"
-          }
-        ]
-      }
-    ],
-    "tasks": [
-      {
-        "id": 1,
-        "name": "Task A1.1",
-        "description": "Description of Task A1.1",
-        "startDate": "2024-06-01",
-        "endDate": "2024-06-10",
-        "status": "completed",
-        "projectId": 1
-      },
-      {
-        "id": 2,
-        "name": "Task A1.2",
-        "description": "Description of Task A1.2",
-        "startDate": "2024-06-11",
-        "endDate": "2024-06-20",
-        "status": "in progress",
-        "projectId": 1
-      }
-    ],
+    "tasks": [],
     "users": [
       {
         "id": 1,
