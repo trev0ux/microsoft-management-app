@@ -1,10 +1,7 @@
 <template>
   <div class="customer-card">
     <h3>{{ name }}</h3>
-    <div>
-      <button class="btn btn-link">Editar</button>
-      <button class="btn btn-link">Deletar</button>
-    </div>
+    <p>{{ email }}</p>
   </div>
 </template>
 
@@ -12,6 +9,10 @@
 export default {
   props: {
     name: {
+      type: String,
+      required: true,
+    },
+    email: {
       type: String,
       required: true,
     },

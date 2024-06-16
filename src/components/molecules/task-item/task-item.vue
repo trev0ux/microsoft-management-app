@@ -17,7 +17,6 @@
 
 <script>
 import CustomSelect from "../../molecules/forms/custom-select.vue";
-import { mapActions } from "vuex";
 
 export default {
   components: {
@@ -56,14 +55,13 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["updateTaskStatus"]),
     updateStatus(newStatus) {
-      this.updateTaskStatus({
+      this.$store.dispatch("taskModule/updateTaskStatus", {
         projectId: this.projectId,
         taskId: this.id,
         status: newStatus,
       });
-    }
+    },
   },
 };
 </script>

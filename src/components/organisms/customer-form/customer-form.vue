@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="handleCustomerSubmit">
+  <form @submit="handleCustomerSubmit">
     <custom-input label="Nome" id="name" v-model="name" />
     <custom-input label="Email" id="email" v-model="email" />
     <button class="btn btn-primary" type="submit">Enviar</button>

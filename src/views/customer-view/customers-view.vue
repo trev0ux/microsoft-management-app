@@ -8,7 +8,7 @@
         </button>
       </div>
       <article class="customers__customer-list">
-          <customer-card v-for="(item, index) in customers" :key="index" :name="item.name"></customer-card>
+          <customer-card v-for="(item, index) in customers" :key="index" :name="item.name" :email="item.email"></customer-card>
       </article>
     </div>
     <custom-modal>

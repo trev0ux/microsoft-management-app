@@ -59,7 +59,6 @@ export default {
     },
     fetchTasks() {
       this.tasks = this.$store.getters.getTasksByProjectId(this.projectId);
-      console.log(this.tasks)
     },
     updateTaskStatus({ id, status }) {
       const task = this.tasks.find((task) => task.id === id);

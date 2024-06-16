@@ -1,13 +1,5 @@
 <template>
   <div class="project-item">
-    <div class="btn-group">
-      <ul class="dropdown-menu dropdown-menu-end">
-        <li><button class="dropdown-item" type="button">Editar</button></li>
-        <li>
-          <button class="dropdown-item" type="button">Remover</button>
-        </li>
-      </ul>
-    </div>
     <div>
       <h3>{{ name }}</h3>
       <h4><span></span> {{ status }}</h4>

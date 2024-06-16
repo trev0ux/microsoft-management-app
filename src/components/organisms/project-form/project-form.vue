@@ -80,6 +80,7 @@ export default {
     clearForm() {
       this.name = "";
       this.email = "";
+      this.description = "";
     },
   },
 };
