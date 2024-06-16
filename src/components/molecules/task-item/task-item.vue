@@ -2,16 +2,18 @@
   <div class="task-item">
     <div>
       <h3>{{ name }}</h3>
-      <h4><span></span> {{ status }}</h4>
-      <custom-select
-        label="Status"
-        id="status"
-        :options="statusOptions"
-        v-model="selectedStatus"
-        @update:modelValue="updateStatus"
-      />
+      <h4>
+        <span :class="['task-item__status', statusInfo.class]"></span> {{ statusInfo.text }}
+      </h4>
+      <p>{{ description }}</p>
     </div>
-    <h5>{{ description }}</h5>
+    <custom-select
+      label="Status"
+      id="status"
+      :options="statusOptions"
+      v-model="selectedStatus"
+      @update:modelValue="updateStatus"
+    />
   </div>
 </template>
 
@@ -54,8 +56,23 @@ export default {
       required: true,
     },
   },
+  computed: {
+    statusInfo() {
+      switch (this.status) {
+        case "to-do":
+          return { class: "task-item__status--to-do", text: "Para fazer" };
+        case "active":
+          return { class: "task-item__status--active", text: "Em andamento" };
+        case "done":
+          return { class: "task-item__status--done", text: "Concluído" };
+        default:
+          return { class: "", text: "" };
+      }
+    },
+  },
   methods: {
     updateStatus(newStatus) {
+      this.selectedStatus = newStatus;
       this.$store.dispatch("taskModule/updateTaskStatus", {
         projectId: this.projectId,
         taskId: this.id,

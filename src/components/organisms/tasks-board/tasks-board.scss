@@ -9,10 +9,38 @@
     justify-content: space-between;
     gap: 16px;
 
+    @include media-breakpoint-down(md) {
+        padding-bottom: 24px;
+        width: 800px;
+    }
+
     > ul {
-        flex: 0 0 33.33%;
+        flex: 0 0 32.33%;
         border-radius: 18px;
         background-color: $grey-card;
         padding: 35px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin: 0;
+
+        @include media-breakpoint-down(md) {
+           padding: 16px;
+        }
+
+        h2 {
+            @include font-size($font-medium);
+            margin-bottom: 16px;
+            font-weight: $font-weight--semibold;
+        }
+        
+        li {
+            list-style-type: none;
+
+            > h3 {
+                @include font-size($font-regular);
+                font-weight: $font-weight--regular;
+            }
+        }
     }
 }

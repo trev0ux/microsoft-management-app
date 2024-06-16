@@ -12,7 +12,8 @@
       </article>
     </div>
     <custom-modal>
-      <customer-form />
+      <template #header>Adicionar cliente</template>
+      <customer-form @close-modal="closeModal" />
     </custom-modal>
   </section>
 </template>
@@ -32,7 +33,7 @@ export default {
   },
   computed: {
     customers() {
-      return this.$store.getters.customers;
+      return this.$store.getters["customerModule/customers"];
     }
   },
   setup() {
@@ -45,6 +46,9 @@ export default {
   methods: {
     openModal() {
       this.modalService.openModal("Adicionar clientes");
+    },
+    closeModal() {
+      this.modalService.closeModal();
     },
   },
 };

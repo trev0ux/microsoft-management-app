@@ -7,7 +7,51 @@
 .task-item {
     flex: 0 0 33.33%;
     border-radius: 18px;
-    background-color: $grey-card;
+    background-color: #EBEBEB;
     padding: 35px;
     display: flex;
+    flex-direction: column;
+
+    @include media-breakpoint-down(md) {
+        padding: 16px;
+    }
+
+    h3 {
+        @include font-size($font-big);
+        font-weight: $font-weight--medium;
+    }
+
+    h4, h5, p {
+        @include font-size($font-regular);
+
+        @include media-breakpoint-down(md) {
+            @include font-size($font-small);
+        }
+    }
+
+    > div {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    &__status {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 8px;
+
+        &--to-do {
+            background-color: $yellow;
+        }
+
+        &--active {
+            background-color: $green;
+        }
+
+        &--done {
+            background-color: $red;
+        }
+    }
 }

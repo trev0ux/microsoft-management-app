@@ -10,4 +10,83 @@
     background-color: $grey-card;
     padding: 35px;
     display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 24px;
+
+    &__status {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 8px;
+        background-color: #EBEBEB;
+
+        &--active {
+            background-color: $yellow;
+        }
+
+        &--completed {
+            background-color: $green;
+        }
+
+        &--todo {
+            background-color: $red;
+        }
+    }
+
+    > div {
+        display: flex;
+        gap: 4px;
+        flex-direction: column;
+
+        h3 {
+            @include font-size($font-big);
+            font-weight: $font-weight--medium;
+        }
+
+        h4 {
+            @include font-size($font-small);
+            font-weight: $font-weight--regular;
+        }
+    }
+
+    &__customer {
+        @include font-size($font-regular);
+        font-weight: $font-weight--regular;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+
+        @include media-breakpoint-down(md) {
+            margin-top: 16px;
+            @include font-size($font-small);
+        }
+    }
+
+    &__avatar {
+        height: 32px;
+        width: 32px;
+        background-color: $primary;
+        border-radius: 100px;
+        @include font-size($font-regular);
+        font-weight: $font-weight--regular;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $white;
+    }
+
+    > a {
+        text-decoration: none;
+        color: $light-black;
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+
+        svg {
+            width: 18px;
+            height: 18px;
+        }
+    }
 }

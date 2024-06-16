@@ -23,7 +23,10 @@
 
   &__customer-list {
       display: flex;
-      flex-direction: column;
       gap: 16px;
+
+      @include media-breakpoint-down(md) {
+        flex-direction: column;
+    }
   }
 }

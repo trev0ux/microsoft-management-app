@@ -1,6 +1,9 @@
 <template>
   <div class="customer-card">
-    <h3>{{ name }}</h3>
+      <div>
+        <div class="customer-card__avatar">{{ initials }}</div>
+        <h3>{{ name }}</h3>
+      </div>
     <p>{{ email }}</p>
   </div>
 </template>
@@ -17,6 +20,11 @@ export default {
       required: true,
     },
   },
+  computed: {
+    initials() {
+      return this.name.split(' ').map(n => n[0]).join('').toUpperCase();
+    }
+  }
 };
 </script>
 

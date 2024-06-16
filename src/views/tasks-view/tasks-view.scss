@@ -10,14 +10,25 @@
         justify-content: space-between;
         align-items: center;
         margin-bottom: 50px;
-
+    
         @include media-breakpoint-down(md) {
             flex-wrap: wrap;
         }
-
+    
         h1 {
-            @include font-size($font-large);
+            @include font-size($font-xx-big);
             font-weight: $font-weight--regular;
+
+            @include media-breakpoint-down(md) {
+                margin-bottom: 32px;
+            }
+        }
+      }
+
+      article {
+        @include media-breakpoint-down(md) {
+            overflow-x: scroll;
+            width: 100%;
         }
     }
 }

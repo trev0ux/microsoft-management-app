@@ -15,8 +15,25 @@
               :customer="customer.name"
               :status="project.status"
             >
-              <router-link :to="{ name: 'Atividades', params: { projectId: project.id } }">
-                View Tasks
+              <router-link
+                :to="{ name: 'Atividades', params: { projectId: project.id } }"
+              >
+                Ver atividades
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 32 32"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 24L20 16L12 8"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
               </router-link>
             </project-item>
           </div>
@@ -24,7 +41,8 @@
       </article>
     </div>
     <custom-modal>
-      <project-form />
+      <template #header>Adicionar projeto</template>
+      <project-form @close-modal="closeModal" />
     </custom-modal>
   </section>
 </template>
@@ -49,8 +67,8 @@ export default {
   },
   computed: {
     customers() {
-      return this.$store.getters.customers;
-    }
+      return this.$store.getters["customerModule/customers"];
+    },
   },
   setup() {
     const modalService = inject("modalService");
@@ -61,8 +79,11 @@ export default {
   },
   methods: {
     openModal() {
-      this.modalService.openModal("", "Adicionar projeto");
-    }
+      this.modalService.openModal("");
+    },
+    closeModal() {
+      this.modalService.closeModal();
+    },
   },
 };
 </script>

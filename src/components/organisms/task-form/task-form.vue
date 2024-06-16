@@ -1,9 +1,9 @@
 <template>
   <form @submit.prevent="handleTaskSubmit">
-    <custom-input label="Name" id="name" v-model="name" />
+    <custom-input label="Name" id="name" v-model="name" required class="mb-3" />
     <label class="form-label" for="description">Descrição</label>
     <textarea
-      class="form-control"
+      class="form-control mb-3"
       id="description"
       rows="2"
       v-model="description"
@@ -14,8 +14,6 @@
 
 <script>
 import CustomInput from "../../molecules/forms/custom-input.vue";
-import { useStore } from "vuex";
-import { inject } from "vue";
 import { v4 as uuidv4 } from "uuid";
 
 export default {
@@ -32,19 +30,6 @@ export default {
       required: true,
     },
   },
-  setup() {
-    const store = useStore();
-    const modalService = inject("modalService");
-
-    const closeModal = () => {
-      modalService.closeModal();
-    };
-
-    return {
-      store,
-      closeModal,
-    };
-  },
   methods: {
     handleTaskSubmit() {
       let newTask = {
@@ -54,17 +39,15 @@ export default {
         status: "to-do",
       };
 
-      this.$store.dispatch("addTask", {
+      this.$store.dispatch("projectModule/addTask", {
         projectId: this.projectId,
         task: newTask,
       });
 
-      this.clearForm();
-      this.closeModal();
-    },
-    clearForm() {
+      this.$emit("close-modal");
+
       this.name = "";
-      this.description = "";
+      this.description = "";   
     },
   },
 };

@@ -1,15 +1,13 @@
 <template>
-  <form @submit="handleCustomerSubmit">
-    <custom-input label="Nome" id="name" v-model="name" />
-    <custom-input label="Email" id="email" v-model="email" />
+  <form @submit.prevent="handleCustomerSubmit">
+    <custom-input class="mb-3" label="Nome" id="name" required v-model="name" />
+    <custom-input class="mb-3" label="Email" id="email" v-model="email" />
     <button class="btn btn-primary" type="submit">Enviar</button>
   </form>
 </template>
 
 <script>
 import CustomInput from "../../molecules/forms/custom-input.vue";
-import { useStore } from "vuex";
-import { inject } from "vue";
 import { v4 as uuidv4 } from 'uuid';
 
 export default {
@@ -23,19 +21,6 @@ export default {
   components: {
     CustomInput,
   },
-  setup() {
-    const store = useStore();
-    const modalService = inject("modalService");
-
-    const closeModal = () => {
-      modalService.closeModal();
-    };
-
-    return {
-      store,
-      closeModal
-    };
-  },
   methods: {
     handleCustomerSubmit() {
       let newCustomer = {
@@ -45,14 +30,14 @@ export default {
         projects: []
       };
 
-      this.store.commit("addCustomer", newCustomer);
+      this.$store.dispatch("customerModule/addCustomer", newCustomer);
 
-      this.clearForm();
-      this.closeModal();
+      this.name = "";
+      this.email = "";      
+      this.$emit('close-modal');
     },
     clearForm() {
-      this.name = "";
-      this.email = "";
+
     },
   },
 };

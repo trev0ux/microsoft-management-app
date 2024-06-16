@@ -1,7 +1,9 @@
 <template>
   <form @submit.prevent="handleProjectSubmit">
-    <custom-input label="Nome" id="name" v-model="name" />
+    <custom-input label="Nome" required id="name" v-model="name" class="mb-3"/>
     <custom-select
+      class="mb-3"
+      required
       label="Cliente"
       id="customer"
       :options="populateCustomers"
@@ -9,12 +11,11 @@
     ></custom-select>
     <label class="form-label" for="description">Descrição</label>
     <textarea
-      class="form-control"
+      class="form-control mb-3"
       id="description"
       rows="2"
       v-model="description"
     />
-
 
     <button class="btn btn-primary" type="submit">Enviar</button>
   </form>
@@ -23,10 +24,7 @@
 <script>
 import CustomSelect from "../../molecules/forms/custom-select.vue";
 import CustomInput from "../../molecules/forms/custom-input.vue";
-import { useStore } from "vuex";
-import { inject } from "vue";
-import { v4 as uuidv4 } from 'uuid';
-
+import { v4 as uuidv4 } from "uuid";
 
 export default {
   components: { CustomSelect, CustomInput },
@@ -39,24 +37,12 @@ export default {
   },
   computed: {
     populateCustomers() {
-      return this.store.getters.customers.map(customer => ({
+        const customers = this.$store.getters['customerModule/customers'];
+      return customers.map(customer => ({
         value: customer.id,
         label: customer.name
       }));
-    }
-  },
-  setup() {
-    const store = useStore();
-    const modalService = inject("modalService");
-
-    const closeModal = () => {
-      modalService.closeModal();
-    };
-
-    return {
-      store,
-      closeModal
-    };
+    },
   },
   methods: {
     handleProjectSubmit() {
@@ -66,21 +52,18 @@ export default {
         customer: this.customer,
         description: this.description,
         status: "Nova",
-        tasks: []
+        tasks: [],
       };
 
-      this.store.dispatch("addProjectToCustomer", {
+      this.$store.dispatch("projectModule/addProjectToCustomer", {
         customerId: this.customer,
-        project: newProject
+        project: newProject,
       });
 
-      this.clearForm();
-      this.closeModal();
-    },
-    clearForm() {
       this.name = "";
       this.email = "";
-      this.description = "";
+      this.description = "";      
+      this.$emit('close-modal');
     },
   },
 };

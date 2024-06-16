@@ -1,40 +1,34 @@
-import { mount, flushPromises } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import ProjectForm from '@/components/organisms/project-form/project-form.vue';
-import CustomInput from '@/components/molecules/forms/custom-input.vue';
 import CustomSelect from '@/components/molecules/forms/custom-select.vue';
+import CustomInput from '@/components/molecules/forms/custom-input.vue';
 
 jest.mock('uuid', () => ({
   v4: () => 'test-uuid'
 }));
 
 const mockStore = {
+  dispatch: jest.fn(),
   getters: {
-    customers: [
+    'customerModule/customers': [
       { id: '1', name: 'Customer 1' },
-      { id: '2', name: 'Customer 2' }
-    ]
+      { id: '2', name: 'Customer 2' },
+    ],
   },
-  dispatch: jest.fn()
 };
 
-describe('ProjectForm.vue', () => {
+describe('ProjectForm', () => {
   let wrapper;
-  let mockModalService;
 
   beforeEach(() => {
-    mockModalService = {
-      closeModal: jest.fn()
-    };
-
     wrapper = mount(ProjectForm, {
       global: {
-        provide: {
-          store: mockStore,
-          modalService: mockModalService
+        mocks: {
+          $store: mockStore
         },
         stubs: {
-          CustomInput: CustomInput,
-          CustomSelect: CustomSelect
+          CustomSelect,
+          CustomInput,
         }
       }
     });
@@ -42,6 +36,7 @@ describe('ProjectForm.vue', () => {
 
   afterEach(() => {
     wrapper.unmount();
+    jest.clearAllMocks();
   });
 
   it('renders the form', () => {
@@ -54,53 +49,69 @@ describe('ProjectForm.vue', () => {
 
   it('updates v-model when input changes', async () => {
     const nameInput = wrapper.findComponent(CustomInput);
+    const customerSelect = wrapper.findComponent(CustomSelect);
     const descriptionInput = wrapper.find('textarea');
+
     await nameInput.setValue('Project Name');
+    await customerSelect.setValue('1');
     await descriptionInput.setValue('Project Description');
+
     expect(wrapper.vm.name).toBe('Project Name');
+    expect(wrapper.vm.customer).toBe('1');
     expect(wrapper.vm.description).toBe('Project Description');
   });
 
-  it('selects a customer from the options', async () => {
-    const customerSelect = wrapper.findComponent(CustomSelect);
-    await customerSelect.setValue('2');
-    expect(wrapper.vm.customer).toBe('2');
+  it('populates customers correctly', () => {
+    const options = wrapper.vm.populateCustomers;
+    expect(options.length).toBe(2);
+    expect(options[0]).toEqual({ value: '1', label: 'Customer 1' });
+    expect(options[1]).toEqual({ value: '2', label: 'Customer 2' });
   });
 
-  it('calls store dispatch and closes modal on form submission', async () => {
+  it('calls store dispatch on form submission', async () => {
     await wrapper.setData({
       name: 'Project Name',
-      customer: '2',
+      customer: '1',
       description: 'Project Description'
     });
-    await wrapper.find('form').trigger('submit.prevent');
-    await flushPromises();
 
-    expect(mockStore.dispatch).toHaveBeenCalledWith('addProjectToCustomer', {
-      customerId: '2',
+    await wrapper.find('form').trigger('submit.prevent');
+
+    expect(mockStore.dispatch).toHaveBeenCalledWith('projectModule/addProjectToCustomer', {
+      customerId: '1',
       project: {
         id: 'test-uuid',
         name: 'Project Name',
-        customer: '2',
+        customer: '1',
         description: 'Project Description',
         status: 'Nova',
-        tasks: []
+        tasks: [],
       }
     });
-    expect(mockModalService.closeModal).toHaveBeenCalled();
+  });
+
+  it('emits close-modal event on form submission', async () => {
+    await wrapper.setData({
+      name: 'Project Name',
+      customer: '1',
+      description: 'Project Description'
+    });
+
+    await wrapper.find('form').trigger('submit.prevent');
+
+    expect(wrapper.emitted('close-modal')).toBeTruthy();
   });
 
   it('clears the form after submission', async () => {
-    const customerId = '';
     await wrapper.setData({
       name: 'Project Name',
-      customer: customerId,
+      customer: '1',
       description: 'Project Description'
     });
+
     await wrapper.find('form').trigger('submit.prevent');
-    await flushPromises();
+
     expect(wrapper.vm.name).toBe('');
-    expect(wrapper.vm.customer).toBe('');
     expect(wrapper.vm.description).toBe('');
   });
 });

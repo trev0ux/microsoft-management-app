@@ -11,7 +11,13 @@
     background-color: $grey-card;
     padding: 35px;
     display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
     justify-content: space-between;
+
+    @include media-breakpoint-down(md) {
+        flex-direction: column;
+    }
 
     h3 {
         @include font-size($font-medium);
@@ -21,5 +27,19 @@
     > div {
         display: flex;
         gap: 8px;
+        align-items: center;
+    }
+
+    &__avatar {
+        height: 40px;
+        width: 40px;
+        background-color: $primary;
+        border-radius: 100px;
+        @include font-size($font-regular);
+        font-weight: $font-weight--regular;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $white;
     }
 }

@@ -1,19 +1,24 @@
 <template>
   <section class="tasks">
-    <div class="tasks__header">
-      <h1>Atividades para o Projeto {{ projectName }}</h1>
-      <button @click="openModal" class="btn btn-primary">
-        Adicionar atividade
-      </button>
+    <div class="container">
+      <div class="tasks__header">
+        <h1>Atividades para o {{ projectName }}</h1>
+        <button @click="openModal" class="btn btn-primary">
+          Adicionar atividade
+        </button>
+      </div>
+      <article>
+        <tasks-board
+          :tasks="tasks"
+          @update-task-status="updateTaskStatus"
+          :projectId="projectId"
+        />
+      </article>
+      <custom-modal>
+        <template #header>Adicionar atividade</template>
+        <task-form :project-id="projectId" @close-modal="closeModal" />
+      </custom-modal>
     </div>
-    <tasks-board
-      :tasks="tasks"
-      @update-task-status="updateTaskStatus"
-      :projectId="projectId"
-    />
-    <custom-modal>
-      <task-form :project-id="projectId" />
-    </custom-modal>
   </section>
 </template>
 
@@ -29,14 +34,16 @@ export default {
       return this.$route.params.projectId;
     },
     projectName() {
-      const project = this.$store.getters.getProjectById(this.projectId);
+      const project = this.$store.getters["projectModule/getProjectById"](
+        this.projectId
+      );
       return project ? project.name : "";
     },
   },
   data() {
     return {
-        tasks: []
-    }
+      tasks: [],
+    };
   },
   components: {
     TasksBoard,
@@ -57,8 +64,13 @@ export default {
     openModal() {
       this.modalService.openModal("", "Adicionar tarefa");
     },
+    closeModal() {
+      this.modalService.closeModal();
+    },
     fetchTasks() {
-      this.tasks = this.$store.getters.getTasksByProjectId(this.projectId);
+      this.tasks = this.$store.getters["projectModule/getTasksByProjectId"](
+        this.projectId
+      );
     },
     updateTaskStatus({ id, status }) {
       const task = this.tasks.find((task) => task.id === id);
