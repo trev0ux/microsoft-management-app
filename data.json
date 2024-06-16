@@ -1,91 +1,91 @@
 {
-    "clientes": [
+    "customers": [
       {
-        "id": 1,
-        "nome": "Empresa A",
-        "email": "contato@empresaa.com",
-        "telefone": "1234567890",
-        "projetos": [
+        "id": 145,
+        "name": "Company A",
+        "email": "contact@companya.com",
+        "phone": "1234567890",
+        "projects": [
           {
             "id": 1,
-            "nome": "Projeto A1",
-            "descricao": "Descrição do Projeto A1",
-            "status": "em andamento",
-            "atividades": [
+            "name": "Project A1",
+            "description": "Description of Project A1",
+            "status": "in progress",
+            "tasks": [
               {
                 "id": 1,
-                "nome": "Atividade A1.1",
-                "descricao": "Descrição da Atividade A1.1",
-                "dataInicio": "2024-06-01",
-                "dataFim": "2024-06-10",
-                "status": "concluída"
+                "name": "Task A1.1",
+                "description": "Description of Task A1.1",
+                "startDate": "2024-06-01",
+                "endDate": "2024-06-10",
+                "status": "to-do"
               },
               {
                 "id": 2,
-                "nome": "Atividade A1.2",
-                "descricao": "Descrição da Atividade A1.2",
-                "dataInicio": "2024-06-11",
-                "dataFim": "2024-06-20",
-                "status": "em andamento"
+                "name": "Task A1.2",
+                "description": "Description of Task A1.2",
+                "startDate": "2024-06-11",
+                "endDate": "2024-06-20",
+                "status": "done"
               }
             ]
           }
         ]
       }
     ],
-    "projetos": [
+    "projects": [
       {
         "id": 1,
-        "nome": "Projeto A1",
-        "descricao": "Descrição do Projeto A1",
-        "status": "em andamento",
-        "clienteId": 1,
-        "atividades": [
+        "name": "Project A1",
+        "description": "Description of Project A1",
+        "status": "in progress",
+        "customerId": 1,
+        "tasks": [
           {
             "id": 1,
-            "nome": "Atividade A1.1",
-            "descricao": "Descrição da Atividade A1.1",
-            "dataInicio": "2024-06-01",
-            "dataFim": "2024-06-10",
-            "status": "concluída"
+            "name": "Task A1.1",
+            "description": "Description of Task A1.1",
+            "startDate": "2024-06-01",
+            "endDate": "2024-06-10",
+            "status": "to-do"
           },
           {
             "id": 2,
-            "nome": "Atividade A1.2",
-            "descricao": "Descrição da Atividade A1.2",
-            "dataInicio": "2024-06-11",
-            "dataFim": "2024-06-20",
-            "status": "em andamento"
+            "name": "Task A1.2",
+            "description": "Description of Task A1.2",
+            "startDate": "2024-06-11",
+            "endDate": "2024-06-20",
+            "status": "active"
           }
         ]
       }
     ],
-    "atividades": [
+    "tasks": [
       {
         "id": 1,
-        "nome": "Atividade A1.1",
-        "descricao": "Descrição da Atividade A1.1",
-        "dataInicio": "2024-06-01",
-        "dataFim": "2024-06-10",
-        "status": "concluída",
-        "projetoId": 1
+        "name": "Task A1.1",
+        "description": "Description of Task A1.1",
+        "startDate": "2024-06-01",
+        "endDate": "2024-06-10",
+        "status": "completed",
+        "projectId": 1
       },
       {
         "id": 2,
-        "nome": "Atividade A1.2",
-        "descricao": "Descrição da Atividade A1.2",
-        "dataInicio": "2024-06-11",
-        "dataFim": "2024-06-20",
-        "status": "em andamento",
-        "projetoId": 1
+        "name": "Task A1.2",
+        "description": "Description of Task A1.2",
+        "startDate": "2024-06-11",
+        "endDate": "2024-06-20",
+        "status": "in progress",
+        "projectId": 1
       }
     ],
-    "usuarios": [
+    "users": [
       {
         "id": 1,
-        "nome": "Admin",
+        "name": "Admin",
         "email": "admin@microsoft.com",
-        "senha": "hashed_password",
+        "password": "hashed_password",
         "role": "admin"
       }
     ]

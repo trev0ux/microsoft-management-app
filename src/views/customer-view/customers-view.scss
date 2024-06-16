@@ -1,0 +1,29 @@
+@import "bootstrap/scss/_functions";
+@import "bootstrap/scss/_variables";
+@import "bootstrap/scss/mixins/_breakpoints";
+@import "../../assets/styles/_base/typography";
+@import "../../assets/styles/_base/variables";
+
+.customers {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+
+    @include media-breakpoint-down(md) {
+        flex-wrap: wrap;
+    }
+
+    h1 {
+        @include font-size($font-large);
+        font-weight: $font-weight--regular;
+    }
+  }
+
+  &__customer-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+  }
+}

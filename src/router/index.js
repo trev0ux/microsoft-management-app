@@ -1,23 +1,19 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import Login from '@/views/login-view.vue';
-import Clientes from '@/views/customers-view.vue';
-import Projetos from '@/views/projects-view.vue';
-import Atividades from '@/views/atividades-page.vue';
-
-Vue.use(VueRouter);
+import { createMemoryHistory, createRouter } from "vue-router";
+import Login from "@/views/login-view.vue";
+import Clientes from "@/views/customer-view/customers-view.vue";
+import Projetos from "@/views/projects-view/projects-view.vue";
+import Atividades from "@/views/tasks-view/tasks-view.vue";
 
 const routes = [
-  { path: '/login', component: Login },
-  { path: '/clientes', component: Clientes },
-  { path: '/projetos', component: Projetos },
-  { path: '/atividades', component: Atividades },
-  { path: '*', redirect: '/login' }
+  { path: "/login", component: Login },
+  { path: "/clientes", component: Clientes },
+  { path: "/", component: Projetos },
+  { path: "/:projectId/atividades", name: "Atividades", component: Atividades },
 ];
 
-const router = new VueRouter({
-  mode: 'history',
-  routes
+const router = createRouter({
+  history: createMemoryHistory(),
+  routes,
 });
 
 export default router;

@@ -1,94 +1,122 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import data from '../data.json';
+import { createStore } from "vuex";
+import data from "../../data.json";
 
-Vue.use(Vuex);
-
-export default new Vuex.Store({
+const store = createStore({
   state: {
-    clientes: data.clientes,
-    projetos: data.projetos,
-    atividades: data.atividades,
+    customers: data.customers,
+    projects: data.projects,
+    tasks: data.tasks,
     usuarios: data.usuarios,
-    usuario: null
+    usuario: null,
   },
   mutations: {
-    setClientes(state, clientes) {
-      state.clientes = clientes;
-    },
-    setProjetos(state, projetos) {
-      state.projetos = projetos;
-    },
-    setAtividades(state, atividades) {
-      state.atividades = atividades;
-    },
-    setUsuarios(state, usuarios) {
-      state.usuarios = usuarios;
-    },
-    setUsuario(state, usuario) {
-      state.usuario = usuario;
-    },
-    adicionarUsuario(state, usuario) {
-      state.usuarios.push(usuario);
-    },
-    atualizarUsuario(state, usuarioAtualizado) {
-      const index = state.usuarios.findIndex(u => u.id === usuarioAtualizado.id);
-      if (index !== -1) {
-        Vue.set(state.usuarios, index, usuarioAtualizado);
+    addProjectToCustomer(state, { customerId, project }) {
+      const customer = state.customers.find(
+        (customer) => customer.id == customerId
+      );
+      if (customer) {
+        return customer.projects.push(project);
+      } else {
+        alert("Não foi possível criar um projeto para esse cliente");
       }
     },
-    removerUsuario(state, usuarioId) {
-      state.usuarios = state.usuarios.filter(u => u.id !== usuarioId);
-    }
+    updateTaskStatus(state, { projectId, taskId, status }) {
+      const customer = state.customers.find((customer) =>
+        customer.projects.some((project) => project.id == projectId)
+      );
+      if (!customer) return;
+
+      const project = customer.projects.find(
+        (project) => project.id == projectId
+      );
+      if (!project) return;
+
+      const task = project.tasks.find((task) => task.id == taskId);
+      if (task) {
+        task.status = status;
+      }
+
+      const activeTask = project.tasks.some((task) => task.status == "active");
+      const allTasksDone = project.tasks.every(
+        (task) => task.status === "done"
+      );
+
+      if (activeTask) {
+        project.status = "Em andamento";
+      } else if (allTasksDone) {
+        project.status = "Concluída";
+      } else {
+        project.status = "Para Fazer";
+      }
+    },
+    addCustomer(state, customer) {
+      state.customers.push(customer);
+    },
+    addTask(state, { projectId, task }) {
+      task.projectId = projectId;
+      state.tasks.push(task);
+      const project = state.projects.find((project) => project.id == projectId);
+
+      if (project) {
+        project.tasks.push(task);
+      } else {
+        alert("Não foi possível criar uma task para esse projeto");
+      }
+    },
   },
   actions: {
-    fetchClientes({ commit }) {
-      commit('setClientes', data.clientes);
+    addTask({ commit }, { projectId, task }) {
+      commit("addTask", { projectId, task });
     },
-    fetchProjetos({ commit }) {
-      commit('setProjetos', data.projetos);
+    addCustomer({ commit }, customer) {
+      commit("addCustomer", customer);
     },
-    fetchAtividades({ commit }) {
-      commit('setAtividades', data.atividades);
-    },
-    fetchUsuarios({ commit }) {
-      commit('setUsuarios', data.usuarios);
-    },
-    cadastrarUsuario({ commit }, usuario) {
-      commit('adicionarUsuario', usuario);
-    },
-    atualizarUsuario({ commit }, usuario) {
-      const index = data.usuarios.findIndex(u => u.id === usuario.id);
-      if (index !== -1) {
-        Vue.set(data.usuarios, index, usuario);
-        commit('setUsuarios', data.usuarios);
-      }
-    },
-    removerUsuario({ commit }, usuarioId) {
-      data.usuarios = data.usuarios.filter(u => u.id !== usuarioId);
-      commit('setUsuarios', data.usuarios);
+    addProjectToCustomer({ commit }, { customerId, project }) {
+      commit("addProjectToCustomer", { customerId, project });
     },
     autenticarUsuario({ commit }, { email, senha }) {
-      const usuario = data.usuarios.find(u => u.email === email && u.senha === senha);
+      const usuario = data.usuarios.find(
+        (u) => u.email === email && u.senha === senha
+      );
       if (usuario) {
-        commit('setUsuario', usuario);
+        commit("setUsuario", usuario);
         return true;
       }
       return false;
     },
-    alterarSenha({ commit }, { usuarioId, novaSenha }) {
-      const usuario = data.usuarios.find(u => u.id === usuarioId);
-      if (usuario) {
-        usuario.senha = novaSenha;
-        commit('atualizarUsuario', usuario);
+    updateTaskStatus({ commit }, payload) {
+      commit("updateTaskStatus", payload);
+    },
+  },
+  getters: {
+    customers: (state) => state.customers,
+    getCustomerById: (state) => (customerId) => {
+      return state.customers.find((customer) => customer.id == customerId);
+    },
+    projects: (state) => state.projects,
+    getProjectById: (state) => (projectId) => {
+      return state.projects.find((project) => project.id == projectId);
+    },
+    getTasksByProjectId: (state) => (projectId) => {
+      const customer = state.customers.find((customer) =>
+        customer.projects.some((project) => project.id == projectId)
+      );
+      if (!customer) return [];
+
+      const project = customer.projects.find(
+        (project) => project.id == projectId
+      );
+      return project ? project.tasks : [];
+    },
+    getProjectsByCustomerId: (state) => (projectId) => {
+      const project = state.projects.find((project) => project.id == projectId);
+      if (project) {
+        return project.tasks;
+      } else {
+        alert("Não existem projetos para esse cliente");
       }
     },
-    definirPermissao({ commit }, { usuarioId, novaRole }) {
-      const usuario = data.usuarios.find(u => u.id === usuarioId);
-      if (usuario) {
-        usuario.role = novaRole;
-        commit('atualizarUsuario', usuario);
-      }
-    }
-  }
+  },
 });
+
+export default store;

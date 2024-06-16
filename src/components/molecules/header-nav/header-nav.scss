@@ -1,0 +1,32 @@
+@import "bootstrap/scss/_functions";
+@import "bootstrap/scss/_variables";
+@import "bootstrap/scss/mixins/_breakpoints";
+@import "../../../assets/styles/_base/typography";
+@import "../../../assets/styles/_base/variables";
+
+.header {
+    padding: 30px 0;
+
+    > div {
+      display: flex;
+      justify-content: space-between;
+  
+      h1 {
+        font-size: 24px;
+  
+        @include media-breakpoint-down(md) {
+          font-size: 16px;
+        }
+      }
+  
+      > nav {
+        display: flex;
+        gap: 16px;
+  
+        a {
+          text-decoration: none;
+          color: $light-black;
+        }
+      }
+    }
+  }

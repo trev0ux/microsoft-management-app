@@ -1,0 +1,13 @@
+@import "bootstrap/scss/_functions";
+@import "bootstrap/scss/_variables";
+@import "bootstrap/scss/mixins/_breakpoints";
+@import "../../../assets/styles/_base/typography";
+@import "../../../assets/styles/_base/variables";
+
+.task-item {
+    flex: 0 0 33.33%;
+    border-radius: 18px;
+    background-color: $grey-card;
+    padding: 35px;
+    display: flex;
+}

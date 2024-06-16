@@ -1,0 +1,18 @@
+@import "bootstrap/scss/_functions";
+@import "bootstrap/scss/_variables";
+@import "bootstrap/scss/mixins/_breakpoints";
+@import "../../../assets/styles/_base/typography";
+@import "../../../assets/styles/_base/variables";
+
+.tasks-board {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+
+    > ul {
+        flex: 0 0 33.33%;
+        border-radius: 18px;
+        background-color: $grey-card;
+        padding: 35px;
+    }
+}
