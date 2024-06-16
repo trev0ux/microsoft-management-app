@@ -151,5 +151,12 @@ Para ter uma visão mais aprofundada precisei construir um protótipo no Figma, 
 
 ![ray-so-export (3)](https://github.com/trev0ux/microsoft-management-app/assets/47607723/07a4e222-c98d-40a9-bfd9-e8b459efaa81)
 
+## Pontos de melhorias
+- Ajustar selects quando não houver valores selecionados
+- Inserir datas nas atividades
+- Melhorar arquitetura de diretórios com o atomic design para tornar a estrutura ainda mais escalável
 
-
+## Tomadas de decisão
+- Optei por usar um service para o modal com foco em facilitar a atualização e consulta de informações quando precisar passar algum dado pré-definido
+- Garanti que o código todo fosse em inglês para facilitar e garantir a internacionalização, já que é para a Microsoft
+- Busquei adaptar da forma mais eficiente o atomic design devido que é um projeto facilmente escalável
