@@ -25,7 +25,12 @@
         > div {
             display: flex;
             gap: 16px;
-      
+            flex-wrap: wrap;
+            
+            > div {
+                flex: 0 0 32.33%;
+            }
+
             @include media-breakpoint-down(md) {
               flex-direction: column;
           }
