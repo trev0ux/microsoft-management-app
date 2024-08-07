@@ -1,5 +1,4 @@
-## Olá! Esse é o desafio para a AG Capital Group feito por Lucas Amorim.
-Antes de mais nada gostaria de dizer que foi um prazer fazer esse desafio durante o meu final de semana e que achei muito bacana usar dessa abordagem para que assim eu mostre meu potencial e trabalho, espero que gostem.
+## Estudo de testes com o Jest construindo uma aplicação semelhante ao Microsoft Management App.
 
 Apliquei uma série de padrões e metodologias na arquitetura do projeto para garantir um produto escalável e de fácil manutenibilidade focado na experiência dos usuários e também dos desenvolvedores.
 
